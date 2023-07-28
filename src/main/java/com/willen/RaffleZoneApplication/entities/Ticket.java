@@ -1,6 +1,7 @@
 package com.willen.RaffleZoneApplication.entities;
 
-import jakarta.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -8,21 +9,29 @@ import java.util.Objects;
 @Entity
 public class Ticket implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer ticket_number;
     private String seller;
     private String client;
     private String phone;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "prizedraw_id")
+    private PrizeDraw prizeDraw;
+
     public Ticket() {
     }
 
-    public Ticket(Integer id, Integer ticket_number, String seller, String client, String phone) {
+    public Ticket(Integer id, Integer ticket_number, String seller, String client, String phone, PrizeDraw prizeDraw) {
         this.id = id;
         this.ticket_number = ticket_number;
         this.seller = seller;
         this.client = client;
         this.phone = phone;
+        this.prizeDraw = prizeDraw;
     }
 
     public Integer getId() {
@@ -63,6 +72,15 @@ public class Ticket implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+
+    public PrizeDraw getPrizeDraw() {
+        return prizeDraw;
+    }
+
+    public void setPrizeDraw(PrizeDraw prizeDraw) {
+        this.prizeDraw = prizeDraw;
     }
 
     @Override

@@ -1,19 +1,26 @@
 package com.willen.RaffleZoneApplication.entities;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 public class PrizeDraw implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String award;
     private Double ticket_value;
     private Integer ticket_quantity;
     private Instant createdAt;
+
+    @OneToMany(mappedBy = "prizeDraw")
+    List<Ticket> tickets = new ArrayList<>();
 
     public PrizeDraw() {
     }
