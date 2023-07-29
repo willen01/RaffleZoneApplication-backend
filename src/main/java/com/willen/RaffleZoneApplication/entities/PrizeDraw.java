@@ -1,5 +1,7 @@
 package com.willen.RaffleZoneApplication.entities;
 
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -13,10 +15,19 @@ public class PrizeDraw implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Hidden
     private Integer id;
+
+    @Schema(description = "award", example = "sorteio da academia")
     private String award;
+
+    @Schema(description = "ticket_value", example = "2.50")
     private Double ticket_value;
+
+    @Schema(description = "ticket_quantity", example = "20")
     private Integer ticket_quantity;
+
+    @Hidden
     private Instant createdAt;
 
     @OneToMany(mappedBy = "prizeDraw")
