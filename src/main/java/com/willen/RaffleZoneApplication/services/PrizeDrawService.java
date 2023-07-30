@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 @Service
@@ -43,4 +44,8 @@ public class PrizeDrawService {
         return tickets;
     }
 
+    public PrizeDraw findById(Integer id) {
+        Optional<PrizeDraw> prizeDraw = prizeDrawRepository.findById(id);
+        return  prizeDraw.orElseThrow(() -> new IllegalArgumentException("error"));
+    }
 }
