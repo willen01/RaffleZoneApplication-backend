@@ -3,6 +3,8 @@ package com.willen.RaffleZoneApplication.entities;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -18,11 +20,14 @@ public class PrizeDraw implements Serializable {
     @Hidden
     private Integer id;
 
+    @NotEmpty(message = "o campo PRIZEDRAW_NAME é obrigatório")
     private String prizeDraw_name;
 
+    @NotNull(message = "o campo TICKET_VALUE é obrigatório")
     @Schema(description = "ticket_value", example = "2.50")
     private Double ticket_value;
 
+    @NotNull(message = "o campo TICKET_QUANTITY é obrigatório")
     @Schema(description = "ticket_quantity", example = "20")
     private Integer ticket_quantity;
 
@@ -30,6 +35,7 @@ public class PrizeDraw implements Serializable {
     private Instant createdAt;
 
     @ElementCollection
+    @NotNull(message = "É necessário ccadastrar pelo menos um prêmio")
     private List<Award> award;
 
     @OneToMany(mappedBy = "prizeDraw")

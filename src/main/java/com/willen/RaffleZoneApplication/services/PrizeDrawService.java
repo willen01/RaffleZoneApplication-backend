@@ -7,6 +7,7 @@ import com.willen.RaffleZoneApplication.repositories.TicketRepository;
 import com.willen.RaffleZoneApplication.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class PrizeDrawService {
     private TicketRepository ticketRepository;
 
     public void save(PrizeDraw prizeDraw) {
+
         prizeDraw.setCreatedAt(Instant.now());
         PrizeDraw savedDraw = prizeDrawRepository.save(prizeDraw);
 
@@ -47,6 +49,6 @@ public class PrizeDrawService {
 
     public PrizeDraw findById(Integer id) {
         Optional<PrizeDraw> prizeDraw = prizeDrawRepository.findById(id);
-        return  prizeDraw.orElseThrow(() -> new ResourceNotFoundException("prizedraw not found"));
+        return prizeDraw.orElseThrow(() -> new ResourceNotFoundException("prizedraw not found"));
     }
 }
